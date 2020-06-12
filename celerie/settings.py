@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -130,9 +131,21 @@ CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 
 
 # Celery Beat
+
 CELERY_BEAT_SCHEDULE = {
     "sample_task": {
         "task": "core.tasks.sample_task",
         "schedule": crontab(minute="*/1"),
     },
+    "send_email_report": {
+        "task": "core.tasks.send_email_report",
+        "schedule": crontab(hour="*/1"),
+    },
 }
+
+
+# Email
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "noreply@email.com"
+ADMINS = [("testuser", "test.user@email.com"), ]
