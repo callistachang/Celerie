@@ -1,8 +1,5 @@
 from __future__ import absolute_import, unicode_literals
-from django.shortcuts import render, HttpResponse
-
 import os
-
 from celery import Celery
 
 # Creates a Celery app using our own 'settings.py'
@@ -16,4 +13,3 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Discover files titled 'tasks.py' in Django apps
 app.autodiscover_tasks()
-
